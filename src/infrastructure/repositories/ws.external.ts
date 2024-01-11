@@ -1,4 +1,5 @@
 import { Client, LocalAuth } from "whatsapp-web.js";
+import qrcode from "qrcode-terminal";
 import { image as imageQr } from "qr-image";
 import LeadExternal from "../../domain/lead-external.repository";
 
@@ -11,8 +12,8 @@ class WsTransporter extends Client implements LeadExternal {
   constructor() {
     super({
       authStrategy: new LocalAuth(),
-      puppeteer: { headless: true, executablePath: '/usr/bin/chromium-browser',
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions']
+      puppeteer: { headless: true, executablePath: '/usr/bin/google-chrome-stable',
+      args: ['--no-sandbox']
     }
       /*puppeteer: {
         headless: true,
@@ -41,7 +42,8 @@ class WsTransporter extends Client implements LeadExternal {
 
     this.on("qr", (qr) => {
       console.log("Escanea el codigo QR que esta en la carepta tmp");
-      this.generateImage(qr);
+      //this.generateImage(qr);
+      qrcode.generate(qr,{small:true});
     });
   }
 
