@@ -11,7 +11,10 @@ class WsTransporter extends Client implements LeadExternal {
   constructor() {
     super({
       authStrategy: new LocalAuth(),
-      puppeteer: {
+      puppeteer: { headless: true, executablePath: '/usr/bin/chromium-browser',
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-extensions']
+    }
+      /*puppeteer: {
         headless: true,
         //executablePath: '/usr/bin/google-chrome-stable',
         args: [
@@ -19,7 +22,7 @@ class WsTransporter extends Client implements LeadExternal {
           "--unhandled-rejections=strict",
           "--no-sandbox"
         ],
-      },
+      },*/
     });
 
     console.log("Iniciando....");
